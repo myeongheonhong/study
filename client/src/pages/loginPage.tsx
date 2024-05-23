@@ -35,11 +35,12 @@ export default function LoginPage() {
         }),
       });
       const data = await response.json();
+      console.log(data);
 
-      if (data.status) {
-        console.log(data);
-        sessionStorage.setItem('access-token', data.data.accessToken);
-      }
+      // if (data.status) {
+      //   console.log(data);
+      //   sessionStorage.setItem('access-token', data.data.accessToken);
+      // }
     } catch (error) {
       console.log(error);
     }
