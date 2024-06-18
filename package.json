@@ -10,7 +10,10 @@
     "dev-client": "yarn workspace client dev",
     "dev-server": "yarn workspace server dev",
     "lint-client": "yarn workspace client lint",
-    "lint-server": "yarn workspace server lint"
+    "lint-server": "yarn workspace server lint",
+    "build-client": "yarn workspace client build",
+    "build-server": "yarn workspace server build",
+    "start-server": "yarn workspace server start"
   },
   "workspaces": {
     "packages": [
