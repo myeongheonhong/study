@@ -1,0 +1,1 @@
+{"version":3,"file":"partnersController.d.ts","sourceRoot":"","sources":["../../src/controllers/partnersController.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAmC5C,QAAA,MAAM,kBAAkB;2BA9BY,OAAO,OAAO,QAAQ;4BAiBrB,OAAO,OAAO,QAAQ;CAgB1D,CAAC;AAEF,eAAe,kBAAkB,CAAC"}
