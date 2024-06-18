@@ -19,8 +19,8 @@ export default function ItemCard(props: ItemCardProps) {
 
 const Styled = {
   Container: styled.div`
-    width: 50px;
-    height: 100px;
+    width: 250px;
+    height: 400px;
 
     border-radius: 10px;
 

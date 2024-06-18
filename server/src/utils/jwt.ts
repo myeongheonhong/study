@@ -18,17 +18,14 @@ const sign = (email: string) => {
 const verify = (token: string) => {
   if (!process.env.JWT_SECRET_KEY) return;
 
-  let decoded = null;
   try {
-    decoded = jsonwebtoken.verify(token, process.env.JWT_SECRET_KEY);
-    return {
-      ok: true,
-    };
+    const decoded = jsonwebtoken.verify(token, process.env.JWT_SECRET_KEY);
+
+    return decoded;
   } catch (err: any) {
-    return {
-      // ok: false,
-      // message: err.message,
-    };
+    //token에러 처리해야됨
+    console.log(err);
+    return;
   }
 };
 
@@ -62,11 +59,11 @@ const refreshVerify = async (token: string, userId: string) => {
   // }
 };
 
-const jwtMiddleware = {
+const jwt = {
   sign,
   verify,
   refresh,
   refreshVerify,
 };
 
-export default jwtMiddleware;
+export default jwt;

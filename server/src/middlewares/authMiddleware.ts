@@ -1,31 +1,34 @@
-import { httpStatusCode } from '../constant/statusCode';
-import UserModel, { UserSchemaTypes } from '../models/userModel';
-import { ServiceResponseType } from '../types/response';
+import { NextFunction, Request, Response } from 'express';
+import jwt from '../utils/jwt';
 
-const getRegisteredUser = async (email: string): Promise<UserSchemaTypes | null> => {
-  const user = await UserModel.findOne({ email: email });
-
-  return user;
-};
-
-const createUser = async (newUserData: UserSchemaTypes): Promise<ServiceResponseType> => {
+const validateAccessToken = (req: Request, res: Response, next: NextFunction) => {
   try {
-    const newUser = await UserModel.create(newUserData);
-    console.log(newUser);
-    return { status: true, statusCode: httpStatusCode.OK, message: '새로운 유저 DB저장 성공' };
-  } catch (error: any) {
-    console.log(error);
-    if (error.errorResponse.code === 11000) {
-      return { status: false, statusCode: httpStatusCode.CONFLICT, message: '이미 존재하는 회원입니다.' };
+    if (!req.headers.authorization) {
+      throw new Error('토큰이 존재하지 않습니다.');
     }
 
-    return { status: false, statusCode: httpStatusCode.INTERNAL_SERVER_ERROR, message: '새로운 유저 DB저장 실패' };
+    const token = req.headers.authorization?.split(' ').reverse()[0];
+
+    if (token && req.headers.authorization !== 'Bearer') {
+      const decoded = jwt.verify(token);
+
+      if (!decoded) {
+        return;
+      }
+
+      if (typeof decoded === 'object') {
+        req.headers.email = decoded.email;
+      }
+    } else {
+      //에러처리
+    }
+
+    next();
+  } catch (error) {
+    return next(error);
   }
 };
 
-const authMiddleware = {
-  getRegisteredUser,
-  createUser,
-};
+const authMiddleware = { validateAccessToken };
 
 export default authMiddleware;

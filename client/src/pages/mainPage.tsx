@@ -5,6 +5,16 @@ export default function MainPage() {
     <>
       <h1>Main Page</h1>
 
+      <ul>
+        <li>
+          <Link to="/upload">image upload</Link>
+        </li>
+
+        <li>
+          <Link to="/portfolios">my portfolios</Link>
+        </li>
+      </ul>
+
       <Link to="/login">
         <button>Sign In</button>
       </Link>

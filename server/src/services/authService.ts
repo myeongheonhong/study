@@ -1,17 +1,17 @@
 import bcrypt from 'bcrypt';
-import authMiddleware from '../middlewares/authMiddleware';
 import { ServiceResponseType } from '../types/response';
 import { httpStatusCode } from '../constant/statusCode';
 import axios from 'axios';
-import jwtMiddleware from '../middlewares/jwtMiddleware';
 import { v4 as uuidv4 } from 'uuid';
+import authRepository from '../repository/authRepository';
+import jwt from '../utils/jwt';
 
 const postLocalLogin = async (email: string, password: string): Promise<ServiceResponseType> => {
   if (!email || !password) {
     return { status: false, statusCode: httpStatusCode.BAD_REQUEST, message: '비어있는 이메일 혹은 비밀번호' };
   }
 
-  const registeredUser = await authMiddleware.getRegisteredUser(email);
+  const registeredUser = await authRepository.getRegisteredUser(email);
 
   if (!registeredUser) {
     return { status: false, statusCode: httpStatusCode.BAD_REQUEST, message: '이메일이 존재하지 않습니다.' };
@@ -91,18 +91,19 @@ const postGoogleLogin = async (code: string): Promise<ServiceResponseType<getGoo
   const { id, email, name, picture } = googleUserInfo.data;
 
   //초기로그인이라면 회원가입까지 진행
-  const registeredUser = authMiddleware.getRegisteredUser(email);
+  const registeredUser = authRepository.getRegisteredUser(email);
 
   if (!registeredUser) {
-    const refreshToken = jwtMiddleware.refresh();
+    const refreshToken = jwt.refresh();
 
-    const { status, statusCode, message } = await authMiddleware.createUser({
+    const { status, statusCode, message } = await authRepository.createUser({
       id: id,
       email: email,
       password: 'google-login',
       username: name,
       registrationType: 'google',
       refreshToken: refreshToken,
+      portfolio_id_list: [],
     });
 
     if (!status) {
@@ -186,18 +187,19 @@ const postKakaoLogin = async (code: string): Promise<ServiceResponseType<getGoog
   const { nickname, thumbnail_image } = kakaoUserInfo.data.properties;
 
   //초기로그인이라면 회원가입까지 진행
-  const registeredUser = authMiddleware.getRegisteredUser(id);
+  const registeredUser = authRepository.getRegisteredUser(id);
 
   if (!registeredUser) {
-    const refreshToken = jwtMiddleware.refresh();
+    const refreshToken = jwt.refresh();
 
-    const { status, statusCode, message } = await authMiddleware.createUser({
+    const { status, statusCode, message } = await authRepository.createUser({
       id: id,
       email: id,
       password: 'kakao-login',
       username: nickname,
       registrationType: 'kakao',
       refreshToken: refreshToken,
+      portfolio_id_list: [],
     });
 
     if (!status) {
@@ -226,24 +228,25 @@ const postLocalSignup = async (email: string, password: string, username: string
     };
   }
 
-  const registeredUser = await authMiddleware.getRegisteredUser(email);
+  const registeredUser = await authRepository.getRegisteredUser(email);
 
   if (registeredUser) {
     return { status: false, statusCode: httpStatusCode.BAD_REQUEST, message: '이미 존재하는 회원입니다.' };
   }
 
-  const refreshToken = jwtMiddleware.refresh();
+  const refreshToken = jwt.refresh();
 
   const salt = bcrypt.genSaltSync(10);
   const uuid = uuidv4();
 
-  const { status, statusCode, message } = await authMiddleware.createUser({
+  const { status, statusCode, message } = await authRepository.createUser({
     id: uuid,
     email: email,
     password: bcrypt.hashSync(password, salt),
     username: username,
     registrationType: 'local',
     refreshToken: refreshToken,
+    portfolio_id_list: [],
   });
 
   if (!status) {

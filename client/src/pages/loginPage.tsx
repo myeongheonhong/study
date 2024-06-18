@@ -20,7 +20,7 @@ export default function LoginPage() {
     const accessToken = sessionStorage.getItem('access-token');
 
     if (accessToken) {
-      // navigate('/');
+      navigate('/');
     }
   }, []);
 
@@ -35,12 +35,12 @@ export default function LoginPage() {
         }),
       });
       const data = await response.json();
-      console.log(data);
 
-      // if (data.status) {
-      //   console.log(data);
-      //   sessionStorage.setItem('access-token', data.data.accessToken);
-      // }
+      if (data.success) {
+        console.log(data);
+        sessionStorage.setItem('access-token', data.data.accessToken);
+        navigate('/');
+      }
     } catch (error) {
       console.log(error);
     }

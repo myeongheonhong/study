@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import authService from '../services/authService';
 import { fail, success } from '../utils/responseMessage';
-import jwtMiddleware from '../middlewares/jwtMiddleware';
 import { httpStatusCode } from '../constant/statusCode';
+import jwt from '../utils/jwt';
 
 const postLocalLogin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -11,7 +11,7 @@ const postLocalLogin = async (req: Request, res: Response) => {
     const { status, statusCode, message } = await authService.postLocalLogin(email, password);
 
     if (status) {
-      const accessToken = jwtMiddleware.sign(email);
+      const accessToken = jwt.sign(email);
       res.send(success(statusCode, message, { accessToken: accessToken }));
     } else {
       res.send(fail(statusCode, message));
@@ -31,7 +31,7 @@ const postGoogleLogin = async (req: Request, res: Response) => {
     if (!data) {
       res.send(fail(statusCode, message));
     } else {
-      const accessToken = jwtMiddleware.sign(data.email);
+      const accessToken = jwt.sign(data.email);
       res.send(success(statusCode, message, { accessToken: accessToken }));
     }
   } catch (error: any) {
@@ -49,7 +49,7 @@ const postKakaoLogin = async (req: Request, res: Response) => {
     if (!data) {
       res.send(fail(statusCode, message));
     } else {
-      const accessToken = jwtMiddleware.sign(data.email);
+      const accessToken = jwt.sign(data.email);
       res.send(success(statusCode, message, { accessToken: accessToken }));
     }
   } catch (error: any) {
@@ -67,7 +67,7 @@ const postLocalSignup = async (req: Request, res: Response) => {
     if (!status) {
       res.send(fail(statusCode, message));
     } else {
-      const accessToken = jwtMiddleware.sign(email);
+      const accessToken = jwt.sign(email);
       res.send(success(statusCode, message, { accessToken: accessToken }));
     }
   } catch (error: any) {

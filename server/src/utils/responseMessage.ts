@@ -14,3 +14,4 @@ export const fail = (statusCode: number, message: string) => {
     message,
   };
 };
+
