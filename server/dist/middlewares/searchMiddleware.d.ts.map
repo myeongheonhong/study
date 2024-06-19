@@ -1,1 +1,0 @@
-{"version":3,"file":"searchMiddleware.d.ts","sourceRoot":"","sources":["../../src/middlewares/searchMiddleware.ts"],"names":[],"mappings":"AACA,OAAkB,EAAE,eAAe,EAAE,MAAM,qBAAqB,CAAC;AACjE,OAAO,EAAE,mBAAmB,EAAE,MAAM,mBAAmB,CAAC;AAmCxD,QAAA,MAAM,gBAAgB;8BAjCiB,eAAe,KAAG,QAAQ,mBAAmB,CAAC;6BAe/C,MAAM,KAAG,QAAQ,mBAAmB,CAAC;CAqB1E,CAAC;AAEF,eAAe,gBAAgB,CAAC"}

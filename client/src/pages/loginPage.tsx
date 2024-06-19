@@ -26,7 +26,7 @@ export default function LoginPage() {
 
   const postLogin = async () => {
     try {
-      const response = await fetch('http://localhost:8080/auth/login', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -76,7 +76,7 @@ export function GoogleOAuthPage() {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await fetch('http://localhost:8080/auth/google', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/google`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -119,7 +119,7 @@ export function KakaoOAuthPage() {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await fetch('http://localhost:8080/auth/kakao', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/kakao`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

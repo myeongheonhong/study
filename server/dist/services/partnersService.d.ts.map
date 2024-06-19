@@ -1,1 +1,0 @@
-{"version":3,"file":"partnersService.d.ts","sourceRoot":"","sources":["../../src/services/partnersService.ts"],"names":[],"mappings":";;;;AAIA,OAAO,EAAE,mBAAmB,EAAE,MAAM,mBAAmB,CAAC;AAkFxD,QAAA,MAAM,eAAe;6BA/EZ,MAAM,UACL,QAAQ,MAAM,KAAK,UACnB,MAAM,GAAG,MAAM,EAAE,KACxB,QAAQ,mBAAmB,CAAC;+BAqCS,MAAM,GAAG,MAAM,EAAE,KAAG,QAAQ,mBAAmB,CAAC;CA0CvF,CAAC;AAEF,eAAe,eAAe,CAAC"}

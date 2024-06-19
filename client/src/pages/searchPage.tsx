@@ -17,7 +17,7 @@ export default function SearchPage() {
 
   const getItemList = async (value: string) => {
     try {
-      const response = await fetch(`http://localhost:8080/search?itemTitle=${value}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/search?itemTitle=${value}`, {
         method: 'GET',
       });
       const data = await response.json();

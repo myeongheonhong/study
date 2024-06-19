@@ -13,13 +13,13 @@ export default function SignupPage() {
   });
 
   const google_url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${process.env.GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`;
-  
+
   const kakao_url = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.KAKAO_REST_API_KEY}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}
 `;
 
   const postSignup = async () => {
     try {
-      const response = await fetch('http://localhost:8080/auth/signup', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

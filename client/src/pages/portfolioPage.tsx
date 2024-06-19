@@ -8,7 +8,7 @@ export default function PortfolioPage() {
   useEffect(() => {
     async function getPortfolios() {
       try {
-        const response = await fetch('http://localhost:8080/partners/portfolios', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/partners/portfolios`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -16,6 +16,7 @@ export default function PortfolioPage() {
         });
 
         const responseData = await response.json();
+        console.log(responseData);
 
         setData(responseData?.data);
       } catch (error) {
@@ -37,7 +38,8 @@ export default function PortfolioPage() {
               <div>{portfolio?.portfolio_title}</div>
               <br />
               <h2>Image</h2>
-              <img src={portfolio?.portfolio_image_url}></img>
+              <img
+                src={`${process.env.REACT_APP_API_URL}/public/images/portfolios/${portfolio?.portfolio_image_url}`}></img>
             </>
           ))}
       </>

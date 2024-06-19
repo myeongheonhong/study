@@ -20,7 +20,7 @@ export default function UploadPage() {
     data.image[0] && formData.append('image', data.image[0]);
 
     try {
-      const response = await fetch('http://localhost:8080/partners/upload', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/partners/upload`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
